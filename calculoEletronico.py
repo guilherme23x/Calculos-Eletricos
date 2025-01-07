@@ -164,6 +164,7 @@ def main():
                     print("Opção inválida!")
         except ValueError as ex:
             os.system('cls')
+            
             print(f'Ocorrência de erro: {type(ex)}', )
             print(f'O valor digitado não corresponde a uma opção numérica.')
 
