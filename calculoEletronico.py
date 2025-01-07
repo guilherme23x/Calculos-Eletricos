@@ -139,26 +139,33 @@ def main():
         print("5. Cálculo de Capacitância")
         print("6. Cálculo de Indutância")
         print("7. Sair \n")
-        choice = input("Escolha uma opção (1-7): ")
 
-        if choice == '1':
-            lei_de_ohm()
-        elif choice == '2':
-            potencia_eletrica()
-        elif choice == '3':
-            divisores_tensao()
-        elif choice == '4':
-            divisores_corrente()
-        elif choice == '5':
-            capacitancia()
-        elif choice == '6':
-            indutancia()
-        elif choice == '7':
-            print("Saindo...")
-            break
-        else:
-            os.system('cls')
-            print("Opção inválida!")
+        try:
+            opt = int(input("Escolha uma opção (1-7): "))
+
+            match opt:
+                case 1:
+                    lei_de_ohm()
+                case 2:
+                    potencia_eletrica()
+                case 3:
+                    divisores_tensao()
+                case 4:
+                    divisores_corrente()
+                case 5:
+                    capacitancia()
+                case 6:
+                    indutancia()
+                case 7:
+                    print("Saindo...")
+                    break
+                case _:
+                    os.system('cls')
+                    print("Opção inválida!")
+        except ValueError as ex:
+            print(f'Ocorrência de erro: {type(ex)}', )
+            print(f'O valor digitado não corresponde a uma opção numérica.')
+
 
 if __name__ == "__main__":
     main()
