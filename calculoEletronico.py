@@ -1,5 +1,6 @@
 import cmath
 import os
+import math
 
 def lei_de_ohm():
     print("Escolha o que você deseja calcular:")
@@ -96,7 +97,7 @@ def capacitancia():
         for i in range(n):
             C = float(input(f"Digite o valor do capacitor {i+1} (em Farad): "))
             C_total += C
-            os.system('cls')
+        os.system('cls')
         print(f"Capacitância total (C_total) = {C_total} F")
     else:
         os.system('cls')
@@ -129,6 +130,50 @@ def indutancia():
         os.system('cls')
         print("Opção inválida.")
 
+def associacao_resistores():
+    print("Escolha o tipo de associação:")
+    print("1. Série")
+    print("2. Paralelo")
+    choice = input("Digite o número da escolha: ")
+
+    if choice == '1':
+        n = int(input("Digite o número de resistores: "))
+        R_total = sum(float(input(f"Resistor {i+1} (Ohms): ")) for i in range(n))
+        os.system('cls')
+        print(f"Resistência total em série: {R_total} Ohms")
+    elif choice == '2':
+        n = int(input("Digite o número de resistores: "))
+        recip_sum = 0
+        for i in range(n):
+            R = float(input(f"Resistor {i+1} (Ohms): "))
+            recip_sum += 1 / R
+        R_total = 1 / recip_sum
+        os.system('cls')
+        print(f"Resistência total em paralelo: {R_total} Ohms")
+    else:
+        os.system('cls')
+        print("Opção inválida.")
+
+def energia_eletrica():
+    P = float(input("Digite a potência (em Watts): "))
+    t = float(input("Digite o tempo (em segundos): "))
+    E = P * t
+    os.system('cls')
+    print(f"Energia consumida: {E} Joules")
+
+def impedancia_rlc():
+    R = float(input("Digite a resistência (em ohms): "))
+    L = float(input("Digite a indutância (em Henry): "))
+    C = float(input("Digite a capacitância (em Farads): "))
+    f = float(input("Digite a frequência (em Hz): "))
+
+    X_L = 2 * math.pi * f * L
+    X_C = 1 / (2 * math.pi * f * C)
+    Z = math.sqrt(R**2 + (X_L - X_C)**2)
+
+    os.system('cls')
+    print(f"Impedância total (Z) = {Z} Ohms")
+
 def main():
     while True:
         print("\n----- Menu de Cálculos -----\n")
@@ -138,36 +183,52 @@ def main():
         print("4. Divisores de Corrente")
         print("5. Cálculo de Capacitância")
         print("6. Cálculo de Indutância")
-        print("7. Sair \n")
+        print("7. Associação de Resistores")
+        print("8. Energia Elétrica")
+        print("9. Impedância Total (RLC)")
+        print("10. Sair \n")
 
         try:
-            opt = int(input("Escolha uma opção (1-7): "))
+            opt = int(input("Escolha uma opção (1-10): "))
 
             match opt:
                 case 1:
+                    os.system('cls')
                     lei_de_ohm()
                 case 2:
+                    os.system('cls')
                     potencia_eletrica()
                 case 3:
+                    os.system('cls')
                     divisores_tensao()
                 case 4:
+                    os.system('cls')
                     divisores_corrente()
                 case 5:
+                    os.system('cls')
                     capacitancia()
                 case 6:
+                    os.system('cls')
                     indutancia()
                 case 7:
-                    print("Saindo...")
+                    os.system('cls')
+                    associacao_resistores()
+                case 8:
+                    os.system('cls')
+                    energia_eletrica()
+                case 9:
+                    os.system('cls')
+                    impedancia_rlc()
+                case 10:
+                    os.system('cls')
                     break
                 case _:
                     os.system('cls')
                     print("Opção inválida!")
         except ValueError as ex:
             os.system('cls')
-            
-            print(f'Ocorrência de erro: {type(ex)}', )
+            print(f'Ocorrência de erro: {type(ex)}')
             print(f'O valor digitado não corresponde a uma opção numérica.')
-
 
 if __name__ == "__main__":
     main()
