@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .calculator-section {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="bg-[#FFFFFF] dark:bg-[#09090B] flex items-center justify-center min-h-screen">
+    <div
+        class="bg-white dark:bg-[#09090B] dark:border-zinc-800 p-6 dark:text-white rounded-lg  w-full max-w-md rounded-md border">
+        <!-- Main Menu -->
+        <div id="main-menu" class="calculator-section active ">
+            <h1 class="text-2xl font-bold mb-4 text-center">Electrical Calculator</h1>
+            <div class="space-y-2 flex flex-col">
+                <button onclick="showSection('ohm-law')"
+                    class="w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2">
+                    1. Ohm's Law</button>
+                <button onclick="showSection('power')"
+                    class="w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2">2.
+                    Electrical Power</button>
+                <button onclick="showSection('voltage-divider')"
+                    class="w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2">3.
+                    Voltage Divider</button>
+                <button onclick="showSection('current-divider')"
+                    class="w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2">4.
+                    Current Divider</button>
+                <button onclick="showSection('capacitance')"
+                    class="w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2">5.
+                    Capacitance</button>
+                <button onclick="showSection('inductance')"
+                    class="w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2">6.
+                    Inductance</button>
+                <button onclick="showSection('resistors')"
+                    class="w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2">7.
+                    Resistor
+                    Association</button>
+                <button onclick="showSection('energy')"
+                    class="w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2">8.
+                    Electrical Energy</button>
+                <button onclick="showSection('rlc-impedance')"
+                    class="w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2">9.
+                    RLC Impedance</button>
+
+            </div>
+        </div>
+
+        <!-- Ohm's Law -->
+        <div id="ohm-law" class="calculator-section">
+            <h2 class="text-xl font-bold mb-4">Ohm's Law</h2>
+            <select id="ohm-choice"
+                class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+                <option value="1">1. Voltage (V = R * I)</option>
+                <option value="2">2. Current (I = V / R)</option>
+                <option value="3">3. Resistance (R = V / I)</option>
+            </select>
+            <div id="ohm-inputs"></div>
+            <button onclick="calculateOhm()"
+                class="mt-4 p-2 border rounded mb-4 w-48 inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">Calculate</button>
+            <p id="ohm-result" class="mt-4"></p>
+            <button onclick="showSection('main-menu')"
+                class="mt-4 p-2 border rounded mb-4 w-38 inline-flex items-center justify-center bg-gray-700 gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-gray-800">Back</button>
+        </div>
+
+        <!-- Electrical Power -->
+        <div id="power" class="calculator-section">
+            <h2 class="text-xl font-bold mb-4">Electrical Power</h2>
+            <select id="power-choice"
+                class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+                <option value="1">1. Power (P = V * I)</option>
+                <option value="2">2. Power (P = I² * R)</option>
+                <option value="3">3. Power (P = V² / R)</option>
+            </select>
+            <div id="power-inputs"></div>
+            <button onclick="calculatePower()"
+                class="mt-4 p-2 border rounded mb-4 w-full inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">Calculate</button>
+            <p id="power-result" class="mt-4"></p>
+            <button onclick="showSection('main-menu')"
+                class="mt-4 p-2 border rounded mb-4 w-38 inline-flex items-center justify-center bg-gray-700 gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-gray-800">Back</button>
+        </div>
+
+        <!-- Voltage Divider -->
+        <div id="voltage-divider" class="calculator-section">
+            <h2 class="text-xl font-bold mb-4">Voltage Divider</h2>
+            <div class="space-y-2">
+                <input id="v-in" type="number" step="any" placeholder="Input Voltage (V)"
+                    class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+                <input id="r1-v" type="number" step="any" placeholder="R1 (Ohms)"
+                    class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+                <input id="r2-v" type="number" step="any" placeholder="R2 (Ohms)"
+                    class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+            </div>
+            <button onclick="calculateVoltageDivider()"
+                class="mt-4 p-2 border rounded mb-4 w-48 inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">Calculate</button>
+            <p id="voltage-result" class="mt-4"></p>
+            <button onclick="showSection('main-menu')"
+                class="mt-4 p-2 border rounded mb-4 w-38 inline-flex items-center justify-center bg-gray-700 gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-gray-800">Back</button>
+        </div>
+
+        <!-- Current Divider -->
+        <div id="current-divider" class="calculator-section">
+            <h2 class="text-xl font-bold mb-4">Current Divider</h2>
+            <div class="space-y-2">
+                <input id="i-total" type="number" step="any" placeholder="Total Current (A)"
+                    class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+                <input id="r1-i" type="number" step="any" placeholder="R1 (Ohms)"
+                    class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+                <input id="r2-i" type="number" step="any" placeholder="R2 (Ohms)"
+                    class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+            </div>
+            <button onclick="calculateCurrentDivider()"
+                class="mt-4 p-2 border rounded mb-4 w-48 inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">Calculate</button>
+            <p id="current-result" class="mt-4"></p>
+            <button onclick="showSection('main-menu')"
+                class="mt-4 p-2 border rounded mb-4 w-38 inline-flex items-center justify-center bg-gray-700 gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-gray-800">Back</button>
+        </div>
+
+        <!-- Capacitance -->
+        <div id="capacitance" class="calculator-section">
+            <h2 class="text-xl font-bold mb-4">Capacitance</h2>
+            <select id="capacitance-choice"
+                class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+                <option value="1">1. Series Capacitance</option>
+                <option value="2">2. Parallel Capacitance</option>
+            </select>
+            <div id="capacitance-inputs"></div>
+            <button onclick="calculateCapacitance()"
+                class="mt-4 p-2 border rounded mb-4 w-48 inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">Calculate</button>
+            <p id="capacitance-result" class="mt-4"></p>
+            <button onclick="showSection('main-menu')"
+                class="mt-4 p-2 border rounded mb-4 w-38 inline-flex items-center justify-center bg-gray-700 gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-gray-800">Back</button>
+        </div>
+
+        <!-- Inductance -->
+        <div id="inductance" class="calculator-section">
+            <h2 class="text-xl font-bold mb-4">Inductance</h2>
+            <select id="inductance-choice"
+                class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+                <option value="1">1. Series Inductance</option>
+                <option value="2">2. Parallel Inductance</option>
+            </select>
+            <div id="inductance-inputs"></div>
+            <button onclick="calculateInductance()"
+                class="mt-4 p-2 border rounded mb-4 w-48 inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">Calculate</button>
+            <p id="inductance-result" class="mt-4"></p>
+            <button onclick="showSection('main-menu')"
+                class="mt-4 p-2 border rounded mb-4 w-38 inline-flex items-center justify-center bg-gray-700 gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-gray-800">Back</button>
+        </div>
+
+        <!-- Resistor Association -->
+        <div id="resistors" class="calculator-section">
+            <h2 class="text-xl font-bold mb-4">Resistor Association</h2>
+            <select id="resistor-choice"
+                class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+                <option value="1">1. Series</option>
+                <option value="2">2. Parallel</option>
+            </select>
+            <div id="resistor-inputs"></div>
+            <button onclick="calculateResistors()"
+                class="mt-4 p-2 border rounded mb-4 w-48 inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">Calculate</button>
+            <p id="resistor-result" class="mt-4"></p>
+            <button onclick="showSection('main-menu')"
+                class="mt-4 p-2 border rounded mb-4 w-38 inline-flex items-center justify-center bg-gray-700 gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-gray-800">Back</button>
+        </div>
+
+        <!-- Electrical Energy -->
+        <div id="energy" class="calculator-section">
+            <h2 class="text-xl font-bold mb-4">Electrical Energy</h2>
+            <div class="space-y-2">
+                <input id="power-w" type="number" step="any" placeholder="Power (W)"
+                    class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+                <input id="time-s" type="number" step="any" placeholder="Time (s)"
+                    class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+            </div>
+            <button onclick="calculateEnergy()"
+                class="mt-4 p-2 border rounded mb-4 w-48 inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">Calculate</button>
+            <p id="energy-result" class="mt-4"></p>
+            <button onclick="showSection('main-menu')"
+                class="mt-4 p-2 border rounded mb-4 w-38 inline-flex items-center justify-center bg-gray-700 gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-gray-800">Back</button>
+        </div>
+
+        <!-- RLC Impedance -->
+        <div id="rlc-impedance" class="calculator-section">
+            <h2 class="text-xl font-bold mb-4">RLC Impedance</h2>
+            <div class="space-y-2">
+                <input id="r-rlc" type="number" step="any" placeholder="Resistance (Ohms)"
+                    class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+                <input id="l-rlc" type="number" step="any" placeholder="Inductance (H)"
+                    class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+                <input id="c-rlc" type="number" step="any" placeholder="Capacitance (F)"
+                    class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+                <input id="f-rlc" type="number" step="any" placeholder="Frequency (Hz)"
+                    class="w-full p-2 border rounded mb-4 w-48 m-auto inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">
+            </div>
+            <button onclick="calculateRLC()"
+                class="mt-4 p-2 border rounded mb-4 w-48 inline-flex items-center justify-center bg-[#18181B] gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-zinc-800">Calculate</button>
+            <p id="rlc-result" class="mt-4"></p>
+            <button onclick="showSection('main-menu')"
+                class="mt-4 p-2 border rounded mb-4 w-38 inline-flex items-center justify-center bg-gray-700 gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors shadow text-white hover:bg-primary/90 h-9 px-4 py-2 border-gray-800">Back</button>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
